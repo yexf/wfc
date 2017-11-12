@@ -1,4 +1,4 @@
-############ wcc makefile ;; do with mgwin
+############ makefile ;; do with mgwin
 ROOTDIR := .
 
 SRCDIRS := $(ROOTDIR)
@@ -32,8 +32,8 @@ SUBDIRS:= . ./base ./cpptoc ./cpptoc/test ./cpptoc/views ./ctocpp/test ./ctocpp/
 endif
 FULLSOURCES =$(foreach s,$(SUBDIRS),$(foreach d,$(s),$(wildcard $(addprefix $(d)/*,$(SRCEXTS)))))
 OBJS = $(foreach x,$(SRCEXTS), $(patsubst %$(x), %.o,$(filter %$(x),$(FULLSOURCES))))
-FULLOBJS = $(addprefix $(OBJDIR),$(notdir $(OBJS)))
-DEPS = $(patsubst %.o,%.d,$(OBJS))
+FULLOBJS = $(addprefix $(OBJDIR),$(OBJS))
+DEPS = $(patsubst %.o,%.d,$(FULLOBJS))
 
 vpath %.c $(SRCDIRS)
 vpath %.cpp $(SRCDIRS)
@@ -46,16 +46,16 @@ all : config $(PROGRAM)
 
 objs : $(OBJS)
 
-%.o : %.c
-	$(CC) -c $(CPPFLAGS) $(CFLAGS) $< -o $(OBJDIR)$(notdir $@)
+$(OBJDIR)%.o : %.c
+	$(CC) -c $(CPPFLAGS) $(CFLAGS) $< -o $@
 
-%.o : %.cc
-	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< -o $(OBJDIR)$(notdir $@)
+$(OBJDIR)%.o : %.cc
+	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
     
-%.o : %.cpp
-	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< -o $(OBJDIR)$(notdir $@)
+$(OBJDIR)%.o : %.cpp
+	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
     
-$(PROGRAM) : $(OBJS)
+$(PROGRAM) : $(FULLOBJS)
 ifeq ($(findstring .a, $(PROGRAM)), .a)
 	$(AR) -rc $(PROGRAM) $(FULLOBJS)
 else
@@ -74,7 +74,10 @@ else
 config:dir
 endif
 
-dir:
+$(SUBDIRS):
+	mkdir -p $(OBJDIR)$@
+	
+dir:$(SUBDIRS) 
 	@echo "makeing dir..."
 	mkdir -p $(OUTDIR)
 	mkdir -p $(DEBUG_DIR)
@@ -96,9 +99,9 @@ clean:
 
 cleanall: clean cleanout
 
-test: $(SUBDIRS)
-#	@echo $(FULLOBJS)
-#	@echo $(SUBDIRS)
+test: 
+	@echo $(FULLOBJS)
+	@echo $(SUBDIRS)
 	@echo $(OBJS)
 	
 	
