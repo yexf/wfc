@@ -5,19 +5,21 @@ SRCDIRS := $(ROOTDIR)
 
 SRCEXTS := .cpp .c .cc
 
+-include *.mk
+
 OUTDIR := $(ROOTDIR)/build
 OBJDIR := $(OUTDIR)/
 DEBUG_DIR := $(OUTDIR)/debug/
 RELEASE_DIR := $(OUTDIR)/release/
 PROGRAMDIR := $(ROOTDIR)
-PROGRAM := $(PROGRAMDIR)/libcef_dll_wrapper.a
+PROGRAM := $(PROGRAMDIR)/$(PROGRAM)
 
 # 预处理阶段的选项
-CPPFLAGS := $(CPPFLAGS) -I../ -DWRAPPING_CEF_SHARED
+CPPFLAGS := $(CPPFLAGS)
 INLIBS := $(INLIBS) 
 LDFLAGS := $(LDFLAGS)
 CFLAGS := $(CFLAGS)
-CXXFLAGS := $(CXXFLAGS) -std=c++11 -fpermissive
+CXXFLAGS := $(CXXFLAGS)
 
 CC = gcc
 CXX = g++
@@ -66,7 +68,7 @@ else
 endif
 endif
 
-#-include $(DEPS)
+-include $(DEPS)
 
 ifeq ($(DEBUG), 1)
 config:dir
