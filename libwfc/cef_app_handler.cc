@@ -3,7 +3,7 @@
 // can be found in the LICENSE file.
 
 #include <string>
-#include "cef_app_handler.h"
+#include "include/cef_app_handler.h"
 
 virtual void OnBeforeCommandLineProcessing(
         CefRefPtr<ClientAppBrowser> app,
