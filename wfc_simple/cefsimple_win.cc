@@ -20,7 +20,11 @@
 #endif
 
 // Entry point function for all processes.
+#ifdef _MSC_VER
 int APIENTRY wWinMain(HINSTANCE hInstance,
+#else
+int APIENTRY WinMain(HINSTANCE hInstance,
+#endif
                       HINSTANCE hPrevInstance,
                       LPTSTR lpCmdLine,
                       int nCmdShow) {

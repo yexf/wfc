@@ -1,11 +1,7 @@
 ############ makefile ;; do with mgwin
 ROOTDIR := .
-
 SRCDIRS := $(ROOTDIR)
-
 SRCEXTS := .cpp .c .cc
-
--include *.mk
 
 OUTDIR := $(ROOTDIR)/build
 DEBUG_DIR := $(OUTDIR)/debug/
@@ -17,6 +13,7 @@ else
 OBJDIR := $(RELEASE_DIR)
 DEBUGFLAGS :=
 endif
+
 PROGRAMDIR := $(ROOTDIR)
 PROGRAM := $(PROGRAMDIR)/$(PROGRAM)
 
@@ -70,9 +67,9 @@ ifeq ($(findstring .a, $(PROGRAM)), .a)
 	$(AR) -rc $(PROGRAM) $(FULLOBJS)
 else
 ifeq ($(strip $(SRCEXTS)), .c) 
-	$(CC) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) $(LDFLAGS)
+	$(CC) $(LDFLAGS) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) 
 else
-	$(CXX) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) $(LDFLAGS)
+	$(CXX) $(LDFLAGS) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) 
 endif
 endif
 
