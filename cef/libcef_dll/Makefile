@@ -8,9 +8,15 @@ SRCEXTS := .cpp .c .cc
 -include *.mk
 
 OUTDIR := $(ROOTDIR)/build
-OBJDIR := $(OUTDIR)/
 DEBUG_DIR := $(OUTDIR)/debug/
 RELEASE_DIR := $(OUTDIR)/release/
+ifeq ($(DEBUG), 1)
+OBJDIR := $(DEBUG_DIR)
+DEBUGFLAGS := -g
+else
+OBJDIR := $(RELEASE_DIR)
+DEBUGFLAGS :=
+endif
 PROGRAMDIR := $(ROOTDIR)
 PROGRAM := $(PROGRAMDIR)/$(PROGRAM)
 
@@ -19,7 +25,7 @@ CPPFLAGS := $(CPPFLAGS)
 INLIBS := $(INLIBS) 
 LDFLAGS := $(LDFLAGS)
 CFLAGS := $(CFLAGS)
-CXXFLAGS := $(CXXFLAGS)
+CXXFLAGS := $(CXXFLAGS) $(DEBUGFLAGS)
 
 CC = gcc
 CXX = g++
@@ -27,34 +33,36 @@ AR = ar
 RM = rm -f
 
 SHELL = /bin/sh
-ifdef (ONLY_CHILD)
-SUBDIRS=$(shell ls -l | grep ^d | awk '{if($$9 != "build" && $$9 != "Debug" && $$9 != "Release") print $$9}')
+ifeq ($(SUBDIRS), )
+# SUBDIRS := $(shell ls -l | grep ^d | awk '{if($$9 != "build" && $$9 != "Debug" && $$9 != "Release")}' print $$9}')
+SUBDIRS := $(shell find . -type d | grep -v ^./build | grep -v ^./Debug | grep -v ^./Release)
 else
-SUBDIRS:= . ./base ./cpptoc ./cpptoc/test ./cpptoc/views ./ctocpp/test ./ctocpp/views ./wrapper
+SUBDIRS := $(SUBDIRS)
 endif
 FULLSOURCES =$(foreach s,$(SUBDIRS),$(foreach d,$(s),$(wildcard $(addprefix $(d)/*,$(SRCEXTS)))))
 OBJS = $(foreach x,$(SRCEXTS), $(patsubst %$(x), %.o,$(filter %$(x),$(FULLSOURCES))))
 FULLOBJS = $(addprefix $(OBJDIR),$(OBJS))
 DEPS = $(patsubst %.o,%.d,$(FULLOBJS))
+MKFILE = $(wildcard $(addprefix $(ROOTDIR)/*,.mk))
 
 vpath %.c $(SRCDIRS)
 vpath %.cpp $(SRCDIRS)
 vpath %.o $(OBJDIR)
 
-.PHONY : all objs clean cleanall rebuild link cleanout test ECHO $(SUBDIRS) 
+.PHONY : all objs clean cleanall rebuild link cleanout test ECHO  
 
-all : config $(PROGRAM)
+all : config $(PROGRAM) 
 
 
 objs : $(OBJS)
 
-$(OBJDIR)%.o : %.c
+$(OBJDIR)%.o : %.c $(MKFILE)
 	$(CC) -c $(CPPFLAGS) $(CFLAGS) $< -o $@
 
-$(OBJDIR)%.o : %.cc
+$(OBJDIR)%.o : %.cc $(MKFILE)
 	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
     
-$(OBJDIR)%.o : %.cpp
+$(OBJDIR)%.o : %.cpp $(MKFILE)
 	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
     
 $(PROGRAM) : $(FULLOBJS)
@@ -76,14 +84,12 @@ else
 config:dir
 endif
 
-$(SUBDIRS):
-	mkdir -p $(OBJDIR)$@
-	
-dir:$(SUBDIRS) 
+dir: 
 	@echo "makeing dir..."
 	mkdir -p $(OUTDIR)
 	mkdir -p $(DEBUG_DIR)
 	mkdir -p $(RELEASE_DIR)
+	mkdir -p $(addprefix $(OBJDIR), $(wildcard $(SUBDIRS)))
 	mkdir -p $(PROGRAMDIR)
 	
 rebuild: clean all
@@ -94,16 +100,17 @@ cleanout:
 	@$(RM) $(PROGRAM)
 	
 clean:
-	@$(RM) $(FULLOBJS)	
-	@$(RM) -r $(OBJDIR)	
+	@$(RM) -r $(OUTDIR)	
 	@$(RM) $(DEPS)	
 	@$(RM) $(PROGRAM)	
 
 cleanall: clean cleanout
 
 test: 
-	@echo $(FULLOBJS)
 	@echo $(SUBDIRS)
-	@echo $(OBJS)
+#	@echo $(MKFILE)
+#	@echo $(FULLOBJS)
+#	@echo $(SUBDIRS)
+#	@echo $(OBJS)
 	
 	
