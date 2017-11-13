@@ -9,6 +9,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcef_dll_wrapper", "cef\l
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libwfc", "libwfc\libwfc.vcxproj", "{EB3D480A-FF46-4B5C-990E-5518EF632BD4}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cefsimple", "cefsimple\cefsimple.vcxproj", "{1A05CCDF-1237-3C52-8652-B2DD427DD936}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cefclient", "cefclient\cefclient.vcxproj", "{A8EDE05C-1E56-38A8-8AD0-8C101F491B1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -27,6 +31,14 @@ Global
 		{EB3D480A-FF46-4B5C-990E-5518EF632BD4}.Debug|Win32.Build.0 = Debug|Win32
 		{EB3D480A-FF46-4B5C-990E-5518EF632BD4}.Release|Win32.ActiveCfg = Release|Win32
 		{EB3D480A-FF46-4B5C-990E-5518EF632BD4}.Release|Win32.Build.0 = Release|Win32
+		{1A05CCDF-1237-3C52-8652-B2DD427DD936}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1A05CCDF-1237-3C52-8652-B2DD427DD936}.Debug|Win32.Build.0 = Debug|Win32
+		{1A05CCDF-1237-3C52-8652-B2DD427DD936}.Release|Win32.ActiveCfg = Release|Win32
+		{1A05CCDF-1237-3C52-8652-B2DD427DD936}.Release|Win32.Build.0 = Release|Win32
+		{A8EDE05C-1E56-38A8-8AD0-8C101F491B1E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A8EDE05C-1E56-38A8-8AD0-8C101F491B1E}.Debug|Win32.Build.0 = Debug|Win32
+		{A8EDE05C-1E56-38A8-8AD0-8C101F491B1E}.Release|Win32.ActiveCfg = Release|Win32
+		{A8EDE05C-1E56-38A8-8AD0-8C101F491B1E}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

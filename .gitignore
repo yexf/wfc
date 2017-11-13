@@ -38,3 +38,4 @@ bin/*
 .settings/
 .project
 .cproject
+*.res

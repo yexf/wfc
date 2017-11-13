@@ -20,6 +20,7 @@ PROGRAM := $(PROGRAMDIR)/$(PROGRAM)
 
 # 预处理阶段的选项
 CPPFLAGS := $(CPPFLAGS)
+RESOBJS := $(RESOBJS)
 INLIBS := $(INLIBS) 
 DEFLIBS := $(DEFLIBS)
 LDFLAGS := $(LDFLAGS)
@@ -55,6 +56,8 @@ all : config $(PROGRAM)
 
 %.a:%.def
 	dlltool -d $< -l $@
+%.res:%.rc
+	windres $< -O coff -o $@
 	
 objs : $(OBJS)
 
@@ -67,14 +70,14 @@ $(OBJDIR)%.o : %.cc $(MKFILE)
 $(OBJDIR)%.o : %.cpp $(MKFILE)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
     
-$(PROGRAM) : $(FULLOBJS) $(DEFLIBS)
+$(PROGRAM) : $(FULLOBJS) $(DEFLIBS) $(RESOBJS)
 ifeq ($(findstring .a, $(PROGRAM)), .a)
-	$(AR) -rc $(PROGRAM) $(FULLOBJS)
+	$(AR) -rc $(PROGRAM) $(FULLOBJS) $(RESOBJS)
 else
 ifeq ($(strip $(SRCEXTS)), .c) 
-	$(CC) $(LDFLAGS) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) $(DEFLIBS)
+	$(CC) $(LDFLAGS) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) $(DEFLIBS) $(RESOBJS)
 else
-	$(CXX) $(LDFLAGS) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) $(DEFLIBS)
+	$(CXX) $(LDFLAGS) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) $(DEFLIBS) $(RESOBJS)
 endif
 endif
 
