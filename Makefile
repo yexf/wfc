@@ -20,6 +20,7 @@ clean:
 cleanall: clean cleanout
 
 test: all
+	$(BUILD_SIMPLE) test
 
 	
 	
