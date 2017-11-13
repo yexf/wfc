@@ -3,6 +3,7 @@
 // can be found in the LICENSE file.
 
 #include <include/cef_browser.h>
+#include <tchar.h>
 #include "wfc_client_browser.h"
 
 wfcClientBrowser::wfcClientBrowser(HWND hWnd, LPCTSTR lpszMainPage)
@@ -32,8 +33,8 @@ wfcClientBrowser *wfcClientBrowser::CreateClientBrowser(HWND hWnd, LPCTSTR lpszM
 	CefBrowserSettings settings;
 	
 	GetClientRect(hWnd, &rect);
-	info.SetAsChild(hWnd, &rect);
-	CefBrowserHost::CreateBrowser(info, pBrowser->m_pHandle.get(), m_strMainPage, settings, NULL);
+	info.SetAsChild(hWnd, rect);
+	CefBrowserHost::CreateBrowser(info, pBrowser->m_pHandle.get(), pBrowser->m_strMainPage, settings, NULL);
 	return pBrowser;
 }
 
@@ -46,7 +47,7 @@ void wfcClientBrowser::Stop()
 			CefRefPtr<CefBrowser> browser = m_pHandle->GetBrowser();
 			if (browser.get())
 			{
-				browser.StopLoad();
+				browser->StopLoad();
 			}
 		}
 	}

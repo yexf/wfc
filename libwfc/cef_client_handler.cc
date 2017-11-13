@@ -15,7 +15,7 @@
 #include "include/wrapper/cef_helpers.h"
 
 
-CefClientHandler::CefClientHandler(bool use_views)
+CefClientHandler::CefClientHandler()
     : is_closing_(false) {
 }
 

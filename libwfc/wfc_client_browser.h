@@ -19,7 +19,7 @@ public:
 	
 	bool hasClient(CefRefPtr<CefClient> pClient);
 private:
-	wfcClientBrowser();
+	wfcClientBrowser(HWND hWnd, LPCTSTR lpszMainPage);
 protected:
 	CefRefPtr<CefClientHandler> m_pHandle;
 	CefString m_strMainPage;

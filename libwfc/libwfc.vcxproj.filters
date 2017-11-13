@@ -21,12 +21,24 @@
     <ClCompile Include="cef_client_handler.cc">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="libwfc.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="wfc_client_browser.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cef_app_handler.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="cef_client_handler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="libwfc.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="wfc_client_browser.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

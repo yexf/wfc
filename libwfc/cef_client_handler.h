@@ -19,10 +19,9 @@ class CefClientHandler : public CefClient,
 	public CefLifeSpanHandler,
 	public CefLoadHandler {
 
-{
 public:
 	CefClientHandler();
-	~CefClientHandler();
+	~CefClientHandler() OVERRIDE;
 	
 	// CefClient methods:
 	virtual CefRefPtr<CefDisplayHandler> GetDisplayHandler() OVERRIDE {
