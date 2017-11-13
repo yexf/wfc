@@ -24,6 +24,7 @@ LDFLAGS := $(LDFLAGS)
 CFLAGS := $(CFLAGS)
 CXXFLAGS := $(CXXFLAGS) $(DEBUGFLAGS)
 
+-include common.mak
 CC = gcc
 CXX = g++
 AR = ar
@@ -40,7 +41,7 @@ FULLSOURCES =$(foreach s,$(SUBDIRS),$(foreach d,$(s),$(wildcard $(addprefix $(d)
 OBJS = $(foreach x,$(SRCEXTS), $(patsubst %$(x), %.o,$(filter %$(x),$(FULLSOURCES))))
 FULLOBJS = $(addprefix $(OBJDIR),$(OBJS))
 DEPS = $(patsubst %.o,%.d,$(FULLOBJS))
-MKFILE = $(wildcard $(addprefix $(ROOTDIR)/*,.mk))
+MKFILE = $(wildcard $(addprefix $(ROOTDIR)/*,.mak))
 
 vpath %.c $(SRCDIRS)
 vpath %.cpp $(SRCDIRS)
@@ -54,13 +55,13 @@ all : config $(PROGRAM)
 objs : $(OBJS)
 
 $(OBJDIR)%.o : %.c $(MKFILE)
-	$(CC) -c $(CPPFLAGS) $(CFLAGS) $< -o $@
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR)%.o : %.cc $(MKFILE)
-	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
     
 $(OBJDIR)%.o : %.cpp $(MKFILE)
-	$(CXX) -c $(CPPFLAGS) $(CXXFLAGS) $< -o $@
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
     
 $(PROGRAM) : $(FULLOBJS)
 ifeq ($(findstring .a, $(PROGRAM)), .a)

@@ -26,5 +26,5 @@ CPPFLAGS := -I../ -DWRAPPING_CEF_SHARED -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT
 INLIBS := 
 LDFLAGS := 
 CFLAGS := 
-CXXFLAGS := -std=c++11 -fpermissive
+CXXFLAGS := -std=c++11 -fpermissive -ffunction-sections -fdata-sections
 include $(BUILD)
