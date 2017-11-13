@@ -27,4 +27,4 @@ INLIBS :=
 LDFLAGS := 
 CFLAGS := 
 CXXFLAGS := -std=c++11 -fpermissive
-include ../../build.mk
+include $(BUILD)

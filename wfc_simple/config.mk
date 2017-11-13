@@ -24,4 +24,4 @@ INLIBS := -lmingw32 -lcef_dll_wrapper -l:libcef.dll
 LDFLAGS := -mwindows -static -L../lib -L../cef/libcef_dll
 CFLAGS := 
 CXXFLAGS := -std=c++11 -fpermissive
-include ../build.mk
+include $(BUILD)
