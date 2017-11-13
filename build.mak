@@ -20,6 +20,7 @@ PROGRAM := $(PROGRAMDIR)/$(PROGRAM)
 # 预处理阶段的选项
 CPPFLAGS := $(CPPFLAGS)
 INLIBS := $(INLIBS) 
+DEFLIBS := $(DEFLIBS)
 LDFLAGS := $(LDFLAGS)
 CFLAGS := $(CFLAGS)
 CXXFLAGS := $(CXXFLAGS) $(DEBUGFLAGS)
@@ -51,7 +52,9 @@ vpath %.o $(OBJDIR)
 
 all : config $(PROGRAM) 
 
-
+%.a:%.def
+	dlltool -d $< -l $@
+	
 objs : $(OBJS)
 
 $(OBJDIR)%.o : %.c $(MKFILE)
@@ -63,14 +66,14 @@ $(OBJDIR)%.o : %.cc $(MKFILE)
 $(OBJDIR)%.o : %.cpp $(MKFILE)
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
     
-$(PROGRAM) : $(FULLOBJS)
+$(PROGRAM) : $(FULLOBJS) $(DEFLIBS)
 ifeq ($(findstring .a, $(PROGRAM)), .a)
 	$(AR) -rc $(PROGRAM) $(FULLOBJS)
 else
 ifeq ($(strip $(SRCEXTS)), .c) 
-	$(CC) $(LDFLAGS) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) 
+	$(CC) $(LDFLAGS) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) $(DEFLIBS)
 else
-	$(CXX) $(LDFLAGS) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) 
+	$(CXX) $(LDFLAGS) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) $(DEFLIBS)
 endif
 endif
 
@@ -100,6 +103,7 @@ cleanout:
 clean:
 	@$(RM) -r $(OUTDIR)	
 	@$(RM) $(DEPS)	
+	@$(RM) $(DEFLIBS)	
 	@$(RM) $(PROGRAM)	
 
 cleanall: clean cleanout
