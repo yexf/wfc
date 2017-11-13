@@ -15,7 +15,7 @@
 # CEF_USE_ATL
 
 
-PROGRAMDIR :=
+PROGRAMDIR := ../bin
 PROGRAM := wfc_simple.exe
 
 # 预处理阶段的选项

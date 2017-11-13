@@ -13,8 +13,9 @@ else
 OBJDIR := $(RELEASE_DIR)
 DEBUGFLAGS :=
 endif
-
+ifeq ($(PROGRAMDIR),)
 PROGRAMDIR := $(ROOTDIR)
+endif
 PROGRAM := $(PROGRAMDIR)/$(PROGRAM)
 
 # 预处理阶段的选项
@@ -109,7 +110,8 @@ clean:
 cleanall: clean cleanout
 
 test: 
-	@echo $(SUBDIRS)
+	$(PROGRAM)
+#	@echo $(SUBDIRS)
 #	@echo $(MKFILE)
 #	@echo $(FULLOBJS)
 #	@echo $(SUBDIRS)
