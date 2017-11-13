@@ -27,4 +27,4 @@ INLIBS :=
 LDFLAGS := 
 CFLAGS := 
 CXXFLAGS := -std=c++11 -fpermissive -ffunction-sections -fdata-sections
-include $(BUILD)
+include $(BUILD_FILE)

@@ -34,3 +34,7 @@ Debug
 Release
 *.db
 build
+bin/*
+.settings/
+.project
+.cproject
