@@ -23,19 +23,21 @@ public:
 		return this;
 	}
 	virtual void OnBeforeCommandLineProcessing(
-        CefRefPtr<ClientAppBrowser> app,
-        CefRefPtr<CefCommandLine> command_line) OVERRIDE;
+      const CefString& process_type,
+      CefRefPtr<CefCommandLine> command_line) OVERRIDE;
 
 	// CefRenderProcessHandler methods:
-	virtual void OnContextCreated() OVERRIDE;
+	virtual void OnContextCreated(CefRefPtr<CefBrowser> browser,
+    	CefRefPtr<CefFrame> frame,
+    	CefRefPtr<CefV8Context> context) OVERRIDE;
 	
 	// CefBrowserProcessHandler methods:
 	virtual void OnContextInitialized() OVERRIDE;
 
-	private:
+private:
 	// Include the default reference counting implementation.
 	IMPLEMENT_REFCOUNTING(CefAppHandler);
-}
+};
 					  
 
 #endif  // CEF_APP_HANDLER_H_

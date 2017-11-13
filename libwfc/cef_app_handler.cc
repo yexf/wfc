@@ -3,11 +3,11 @@
 // can be found in the LICENSE file.
 
 #include <string>
-#include "include/cef_app_handler.h"
+#include "cef_app_handler.h"
 
-virtual void OnBeforeCommandLineProcessing(
-        CefRefPtr<ClientAppBrowser> app,
-        CefRefPtr<CefCommandLine> command_line)
+void CefAppHandler::OnBeforeCommandLineProcessing(
+	const CefString& process_type,
+	CefRefPtr<CefCommandLine> command_line)
 {
 	OutputDebugString(L"OnBeforeCommandLineProcessing");
 	command_line->AppendSwitch(L"no-proxy-server");
@@ -18,12 +18,14 @@ virtual void OnBeforeCommandLineProcessing(
 	command_line->AppendSwitchWithValue(L"ppapi-flash-path", L"PepperFlase\\pepflashplayer.dll");
 }
 
-virtual void OnContextCreated()
+void CefAppHandler::OnContextCreated(CefRefPtr<CefBrowser> browser,
+	CefRefPtr<CefFrame> frame,
+	CefRefPtr<CefV8Context> context)
 {
 	
 }
 
-virtual void OnContextInitialized()
+void CefAppHandler::OnContextInitialized()
 {
 	
 }
