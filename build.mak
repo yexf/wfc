@@ -108,6 +108,7 @@ clean:
 	@$(RM) -r $(OUTDIR)	
 	@$(RM) $(DEPS)	
 	@$(RM) $(DEFLIBS)	
+	@$(RM) $(RESOBJS)	
 	@$(RM) $(PROGRAM)	
 
 cleanall: clean cleanout
