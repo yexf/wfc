@@ -73,6 +73,8 @@ $(OBJDIR)%.o : %.cpp $(MKFILE)
 $(PROGRAM) : $(FULLOBJS) $(DEFLIBS) $(RESOBJS)
 ifeq ($(findstring .a, $(PROGRAM)), .a)
 	$(AR) -rc $(PROGRAM) $(FULLOBJS) $(RESOBJS)
+else ifeq ($(findstring .dll, $(PROGRAM)), .dll)
+	$(CXX) $(LDFLAGS) -shared -o $(PROGRAM) $(FULLOBJS) $(INLIBS) $(DEFLIBS) $(RESOBJS)
 else
 ifeq ($(strip $(SRCEXTS)), .c) 
 	$(CC) $(LDFLAGS) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) $(DEFLIBS) $(RESOBJS)

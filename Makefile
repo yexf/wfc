@@ -1,6 +1,6 @@
 ############ wcc makefile ;; do with mgwin
 BUILD_FILE:=$(shell pwd)/build.mak
-BUILD_DIR:= cef/libcef_dll/ shared/ cefsimple/ cefclient/
+BUILD_DIR:= cef/libcef_dll/ libwfc/ shared/ cefsimple/ cefclient/
 TEST_TARGET := cefclient/
 BUILD_TARGET:= $(addsuffix .target, $(BUILD_DIR))
 BUILD_CLEAN:= $(addsuffix .clean, $(BUILD_DIR))

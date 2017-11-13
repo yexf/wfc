@@ -21,8 +21,8 @@ PROGRAM := libwfc.dll
 # 预处理阶段的选项
 CPPFLAGS := -I../cef -D_WINDOWS -DUNICODE -D_UNICODE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -DWINVER=0x0601 -D_WIN32_WINNT=0x601 -DWIN32_LEAN_AND_MEAN -D_HAS_EXCEPTIONS -DPSAPI_VERSION=1
 DEFLIBS := ../lib/libcef.a 
-INLIBS := -lmingw32 -lcef_dll_wrapper
-LDFLAGS := -mwindows -municode -static -L../lib -L../cef/libcef_dll -Wl,--gc-sections
+INLIBS := -lcef_dll_wrapper
+LDFLAGS := -static -L../lib -L../cef/libcef_dll -Wl,--gc-sections
 CFLAGS := 
-CXXFLAGS := -std=c++11 -fpermissive -ffunction-sections -fdata-sections
+CXXFLAGS := -std=c++11 -fpermissive -ffunction-sections -fdata-sections -fPIC
 include $(BUILD_FILE)
