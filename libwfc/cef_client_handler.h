@@ -13,7 +13,7 @@
 #include "include/wrapper/cef_helpers.h"
 #include "include/wrapper/cef_message_router.h"
 #include "include/wrapper/cef_resource_manager.h"
-#include "tests/cefclient/browser/client_types.h"
+#include "../cefclient/browser/client_types.h"
 
 
 
