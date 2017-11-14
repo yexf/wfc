@@ -19,8 +19,8 @@
 
 #define RIGHT_SHIFT(x)				(0x01 << x)
 #define SINGLE_PROCESS				RIGHT_SHIFT(0)
-#define MAIN_THREAD					RIGHT_SHIFT(1)
-#define WINDOWLESS					RIGHT_SHIFT(2)
+#define SINGLE_THREAD_MSGLOOP		RIGHT_SHIFT(1)
+#define WINDOW_LESS					RIGHT_SHIFT(2)
 
 #define NORMAL						(0)
 
