@@ -4,7 +4,7 @@
 #ifndef _LIB_WFC_H_
 #define _LIB_WFC_H_
 #pragma once
-
+#include "wfc_browser.h"
 #ifdef _MSC_VER
 #define WFC_EXPORT extern "C" __declspec(dllexport)
 #else
@@ -29,5 +29,7 @@ WFC_API void CoUnInitializeCef();
 WFC_API int InitCef(unsigned int uFlag);
 WFC_API void RunMsgLoopCef();
 WFC_API void QuitMsgLoopCef();
-
+WFC_API wfcBrowser *CreateTopBrowser(const char *pstrUrl, void *pData);
+WFC_API wfcBrowser *CreateChildBrowser(void *hWnd, const char *pstrUrl, void *pData);
+WFC_API wfcBrowser *CreatePopupBrowser(const char *pstrUrl, void *pData);
 #endif //_LIB_WFC_H_

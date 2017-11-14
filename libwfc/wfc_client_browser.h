@@ -10,56 +10,24 @@
 #include "wfc_browser.h"
 #include "cef_client_handler.h"
 
-// When using the Views framework this object provides the delegate
-// implementation for the CefWindow that hosts the Views-based browser.
-class wfcWindowDelegate : public CefWindowDelegate {
-public:
-	explicit wfcWindowDelegate(CefRefPtr<CefBrowserView> browser_view)
-	  : browser_view_(browser_view) {}
-
-	void OnWindowCreated(CefRefPtr<CefWindow> window) OVERRIDE {
-		// Add the browser view and show the window.
-		window->AddChildView(browser_view_);
-		window->Show();
-
-		// Give keyboard focus to the browser view.
-		browser_view_->RequestFocus();
-	}
-
-	void OnWindowDestroyed(CefRefPtr<CefWindow> window) OVERRIDE {
-		browser_view_ = NULL;
-	}
-
-	bool CanClose(CefRefPtr<CefWindow> window) OVERRIDE {
-		// Allow the window to close if the browser says it's OK.
-		CefRefPtr<CefBrowser> browser = browser_view_->GetBrowser();
-		if (browser)
-		  return browser->GetHost()->TryCloseBrowser();
-		return true;
-	}
-
-private:
-	CefRefPtr<CefBrowserView> browser_view_;
-
-	IMPLEMENT_REFCOUNTING(wfcWindowDelegate);
-	DISALLOW_COPY_AND_ASSIGN(wfcWindowDelegate);
-};
-
 class wfcClientBrowser : public wfcBrowser
 {
 public:
-	static wfcClientBrowser *CreateClientBrowser(HWND hWnd, LPCTSTR lpszMainPage);
+	static wfcClientBrowser *CreateBrowser(wfcBrowser::BrowerType bType, HWND hWnd, LPCSTR lpszMainPage, void *pUserData);
 	~wfcClientBrowser();
-	
+	wfcClientBrowser(HWND hWnd, LPCSTR lpszMainPage, CefRefPtr<CefClientHandler> pHandle);
+
 	void Stop();
 	
 	bool IsSame(wfcBrowser *pBrowser);
-private:
-	wfcClientBrowser(HWND hWnd, LPCTSTR lpszMainPage);
+
+	virtual void *GetData(){return m_pUserData;}
+
 protected:
 	CefRefPtr<CefClientHandler> m_pHandle;
 	CefString m_strMainPage;
 	HWND m_hWnd;
+	void *m_pUserData;
 	WFC_CLASSNAME(wfcClientBrowser)
 };
 

@@ -6,8 +6,9 @@
 #include "libwfc.h"
 #include "cef_app_handler.h"
 #include "cef_client_handler.h"
-
+#include "wfc_client_browser.h"
 const TCHAR *psztSubProcPath = _T("wfcweb");
+
 
 static void ConfigSetting(unsigned int uFlag, CefSettings &settings)
 {
@@ -144,4 +145,19 @@ void RunMsgLoopCef()
 void QuitMsgLoopCef()
 {
 	CefQuitMessageLoop();
+}
+
+wfcBrowser *CreateTopBrowser(const char *pstrUrl, void *pData)
+{
+	return wfcClientBrowser::CreateBrowser(wfcBrowser::TopBrowser, NULL, pstrUrl, pData);
+
+}
+wfcBrowser *CreateChildBrowser(void *hWnd, const char *pstrUrl, void *pData)
+{
+	return wfcClientBrowser::CreateBrowser(wfcBrowser::PopupBrowser, (HWND)hWnd, pstrUrl, pData);
+}
+
+wfcBrowser *CreateChildBrowser(const char *pstrUrl, void *pData)
+{
+	return wfcClientBrowser::CreateBrowser(wfcBrowser::ChildBrowser, NULL, pstrUrl, pData);
 }
