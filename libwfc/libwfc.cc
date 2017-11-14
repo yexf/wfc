@@ -12,6 +12,31 @@ const TCHAR *psztSubProcPath = _T("wfcweb");
 #define F_OK 0
 #endif
 
+BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
+{
+	DWORD dwCurProcessId = *((DWORD*)lParam);
+	DWORD dwProcessId = 0;
+
+	GetWindowThreadProcessId(hwnd, &dwProcessId);
+	if (dwProcessId == dwCurProcessId && GetParent(hwnd) == NULL)
+	{
+		*((HWND *)lParam) = hwnd;
+		return FALSE;
+	}
+	return TRUE;
+}
+
+
+HWND GetMainWindow()
+{
+	DWORD dwCurrentProcessId = GetCurrentProcessId();
+	if (!EnumWindows(EnumWindowsProc, (LPARAM)&dwCurrentProcessId))
+	{
+		return (HWND)dwCurrentProcessId;
+	}
+	return NULL;
+}
+
 static void ConfigSetting(unsigned int uFlag, CefSettings &settings)
 {
 	settings.single_process = !(uFlag & SINGLE_PROCESS);
