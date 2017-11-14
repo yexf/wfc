@@ -41,5 +41,11 @@
     <ClInclude Include="wfc_client_browser.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="wfc_browser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.mak" />
   </ItemGroup>
 </Project>

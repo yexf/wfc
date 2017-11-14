@@ -8,7 +8,9 @@
 #include "cef_client_handler.h"
 #include "wfc_client_browser.h"
 const TCHAR *psztSubProcPath = _T("wfcweb");
-
+#ifndef F_OK
+#define F_OK 0
+#endif
 
 static void ConfigSetting(unsigned int uFlag, CefSettings &settings)
 {
@@ -154,10 +156,10 @@ wfcBrowser *CreateTopBrowser(const char *pstrUrl, void *pData)
 }
 wfcBrowser *CreateChildBrowser(void *hWnd, const char *pstrUrl, void *pData)
 {
-	return wfcClientBrowser::CreateBrowser(wfcBrowser::PopupBrowser, (HWND)hWnd, pstrUrl, pData);
+	return wfcClientBrowser::CreateBrowser(wfcBrowser::ChildBrowser, (HWND)hWnd, pstrUrl, pData);
 }
 
-wfcBrowser *CreateChildBrowser(const char *pstrUrl, void *pData)
+wfcBrowser *CreatePopupBrowser(const char *pstrUrl, void *pData)
 {
-	return wfcClientBrowser::CreateBrowser(wfcBrowser::ChildBrowser, NULL, pstrUrl, pData);
+	return wfcClientBrowser::CreateBrowser(wfcBrowser::PopupBrowser, NULL, pstrUrl, pData);
 }

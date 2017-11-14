@@ -106,6 +106,7 @@ wfcClientBrowser::~wfcClientBrowser()
 {
 	OutputDebugString(L"~wfcClientBrowser");
 	Stop();
+	m_pHandle->CloseAllBrowsers(false);
 	m_pHandle = NULL;
 }
 
@@ -126,7 +127,7 @@ wfcClientBrowser *wfcClientBrowser::CreateBrowser(wfcBrowser::BrowerType bType, 
 	if (pBrowser != NULL) {
 		pBrowser->m_pUserData = pUserData;
 	}
-	return NULL;
+	return pBrowser;
 }
 
 void wfcClientBrowser::Stop()

@@ -13,6 +13,7 @@
 class wfcBrowser
 {
 public:
+	virtual ~wfcBrowser() {};
 	enum BrowerType {
 		TopBrowser = 1,
 		ChildBrowser,

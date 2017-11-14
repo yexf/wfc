@@ -14,7 +14,7 @@
 #ifdef WFC_DLL
 #define WFC_API	WFC_EXPORT
 #else
-#define WFC_API
+#define WFC_API extern "C" 
 #endif
 
 #define RIGHT_SHIFT(x)				(0x01 << x)
