@@ -74,12 +74,12 @@ $(PROGRAM) : $(FULLOBJS) $(DEFLIBS) $(RESOBJS)
 ifeq ($(findstring .a, $(PROGRAM)), .a)
 	$(AR) -rc $(PROGRAM) $(FULLOBJS) $(RESOBJS)
 else ifeq ($(findstring .dll, $(PROGRAM)), .dll)
-	$(CXX) $(LDFLAGS) -shared -o $(PROGRAM) $(FULLOBJS) $(INLIBS) $(DEFLIBS) $(RESOBJS)
+	$(CXX) -shared  $(LDFLAGS) $(FULLOBJS) $(INLIBS) $(DEFLIBS) $(RESOBJS) -o $(PROGRAM)
 else
 ifeq ($(strip $(SRCEXTS)), .c) 
-	$(CC) $(LDFLAGS) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) $(DEFLIBS) $(RESOBJS)
+	$(CC) $(LDFLAGS) $(FULLOBJS) $(INLIBS) $(DEFLIBS) $(RESOBJS) -o $(PROGRAM)
 else
-	$(CXX) $(LDFLAGS) -o $(PROGRAM) $(FULLOBJS) $(INLIBS) $(DEFLIBS) $(RESOBJS)
+	$(CXX) $(LDFLAGS) $(FULLOBJS) $(INLIBS) $(DEFLIBS) $(RESOBJS) -o $(PROGRAM)
 endif
 endif
 

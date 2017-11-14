@@ -20,7 +20,7 @@ class CefClientHandler : public CefClient,
 	public CefLoadHandler {
 
 public:
-	CefClientHandler();
+	CefClientHandler(bool use_views);
 	~CefClientHandler() OVERRIDE;
 	
 	// CefClient methods:
@@ -61,7 +61,7 @@ private:
 	// List of existing browser windows. Only accessed on the CEF UI thread.
 	typedef std::list<CefRefPtr<CefBrowser>> BrowserList;
 	BrowserList browser_list_;
-
+	const bool use_views_;
 	bool is_closing_;
 
 	// Include the default reference counting implementation.

@@ -15,8 +15,8 @@
 #include "include/wrapper/cef_helpers.h"
 
 
-CefClientHandler::CefClientHandler()
-    : is_closing_(false) {
+CefClientHandler::CefClientHandler(bool use_views)
+    : use_views_(use_views), is_closing_(false) {
 }
 
 CefClientHandler::~CefClientHandler() {
@@ -29,8 +29,20 @@ void CefClientHandler::OnTitleChange(CefRefPtr<CefBrowser> browser,
 	if (IsClosing()) {
 		return;
 	}
-	CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
-	SetWindowText(hwnd, std::wstring(title).c_str());
+	if (use_views_) {
+		// Set the title of the window using the Views framework.
+		CefRefPtr<CefBrowserView> browser_view =
+			CefBrowserView::GetForBrowser(browser);
+		if (browser_view) {
+		  CefRefPtr<CefWindow> window = browser_view->GetWindow();
+		  if (window)
+			window->SetTitle(title);
+		}
+	}
+	else {
+		CefWindowHandle hwnd = browser->GetHost()->GetWindowHandle();
+		SetWindowText(hwnd, std::wstring(title).c_str());
+	}
   
 }
 

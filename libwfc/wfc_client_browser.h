@@ -7,9 +7,10 @@
 #pragma once
 
 #include <set>
+#include "wfc_browser.h"
 #include "cef_client_handler.h"
 
-class wfcClientBrowser
+class wfcClientBrowser : public wfcBrowser
 {
 public:
 	static wfcClientBrowser *CreateClientBrowser(HWND hWnd, LPCTSTR lpszMainPage);
@@ -17,13 +18,14 @@ public:
 	
 	void Stop();
 	
-	bool hasClient(CefRefPtr<CefClient> pClient);
+	bool IsSame(wfcBrowser *pBrowser);
 private:
 	wfcClientBrowser(HWND hWnd, LPCTSTR lpszMainPage);
 protected:
 	CefRefPtr<CefClientHandler> m_pHandle;
 	CefString m_strMainPage;
 	HWND m_hWnd;
+	WFC_CLASSNAME(wfcClientBrowser)
 };
 
 #endif  // WFC_CLIENT_BROWSER_H_

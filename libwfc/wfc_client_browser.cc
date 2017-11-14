@@ -10,7 +10,7 @@ wfcClientBrowser::wfcClientBrowser(HWND hWnd, LPCTSTR lpszMainPage)
 	:m_hWnd(hWnd), m_strMainPage(L"about:blank")
 {
 	OutputDebugString(L"wfcClientBrowser");
-	m_pHandle = new CefClientHandler();
+	m_pHandle = new CefClientHandler(false);
 	if (lpszMainPage && lpszMainPage[0] != _T('\0'))
 	{
 		m_strMainPage = lpszMainPage;
@@ -51,4 +51,8 @@ void wfcClientBrowser::Stop()
 			}
 		}
 	}
+}
+bool wfcClientBrowser::IsSame(wfcBrowser *pBrowser)
+{
+	return false;
 }
