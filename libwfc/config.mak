@@ -24,5 +24,5 @@ DEFLIBS := ../lib/libcef.a
 INLIBS := -lcef_dll_wrapper 
 LDFLAGS := -fvisibility=hidden -static -L../lib -L../cef/libcef_dll 
 CFLAGS := 
-CXXFLAGS := -std=c++11 -fpermissive -fPIC
+CXXFLAGS := -std=c++11 -fpermissive -fpic
 include $(BUILD_FILE)
