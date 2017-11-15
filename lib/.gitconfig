@@ -1,0 +1,14 @@
+[user]
+	name = yexf
+	email = yexf_fyf@163.com
+[core]
+	autocrlf = false
+	filemode = false
+[branch]
+	autosetuprebase = always
+	
+[url "https://beijing.source.codeaurora.org/quic/chrome4sdp"]
+	insteadof = git://chromium.googlesource.com
+[url "https://beijing.source.codeaurora.org/quic/chrome4sdp"]
+	insteadof = http://chromium.googlesource.com
+	
