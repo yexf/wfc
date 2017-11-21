@@ -20,7 +20,9 @@ public:
 	void Stop();
 	
 	bool IsSame(wfcBrowser *pBrowser);
-
+	
+	bool notifyClose(HWND msgWnd);
+	
 	virtual void *GetData(){return m_pUserData;}
 
 protected:

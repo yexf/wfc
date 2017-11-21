@@ -148,3 +148,11 @@ bool wfcClientBrowser::IsSame(wfcBrowser *pBrowser)
 {
 	return false;
 }
+
+bool wfcClientBrowser::notifyClose(HWND msgWnd)
+{
+	if (m_pHandle.get())
+	{
+		m_pHandle->CloseAllBrowsers(false);
+	}
+}
