@@ -65,9 +65,9 @@ void wfcClientBrowser::Stop()
 		}
 	}
 }
-bool wfcClientBrowser::IsSame(wfcBrowser *pBrowser)
+bool wfcClientBrowser::hasClient(CefRefPtr<CefClient> pClient)
 {
-	return false;
+	return m_pHandle.get() == pClient.get();
 }
 
 void wfcClientBrowser::AdjustCefLayout(int left, int top, int right, int bottom)

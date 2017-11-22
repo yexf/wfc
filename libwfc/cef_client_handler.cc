@@ -14,7 +14,7 @@
 #include "include/wrapper/cef_closure_task.h"
 #include "include/wrapper/cef_helpers.h"
 
-void QuitMessageLoop();
+void QuitMessageLoop(CefRefPtr<CefClient> pClient);
 
 CefClientHandler::CefClientHandler(bool use_views)
     : use_views_(use_views), is_closing_(false) {
@@ -87,7 +87,7 @@ void CefClientHandler::OnBeforeClose(CefRefPtr<CefBrowser> browser) {
 
 	if (browser_list_.empty()) {
 		// All browser windows have closed. Quit the application message loop.
-		QuitMessageLoop();
+		QuitMessageLoop(this);
 	}
 }
 

@@ -3,6 +3,9 @@
 // can be found in the LICENSE file.
 #include <tchar.h>
 #include <io.h>
+#include <map>
+#include <string>
+
 #include "libwfc.h"
 #include "cef_app_handler.h"
 #include "cef_client_handler.h"
@@ -12,6 +15,8 @@ const TCHAR *psztSubProcPath = _T("wfcweb");
 #define F_OK 0
 #endif
 unsigned int g_uFlag = NORMAL;
+std::map<std::string, wfcClientBrowser*> g_mapClientBrowser;
+
 BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
 {
 	DWORD dwCurProcessId = *((DWORD*)lParam);
@@ -37,7 +42,7 @@ HWND GetMainWindow()
 	return NULL;
 }
 
-void QuitMessageLoop()
+void QuitMessageLoop(CefRefPtr<CefClient> pClient)
 {
 	if (g_uFlag & SINGLE_THREAD_MSGLOOP) {
 		CefQuitMessageLoop();
@@ -186,4 +191,37 @@ void QuitMsgLoopCef()
 wfcBrowser *CreateBrowser(void *hWnd, const char *pstrUrl, void *pData)
 {
 	return wfcClientBrowser::CreateBrowser((HWND)hWnd, pstrUrl, pData);
+}
+
+void DestoryBrowser()
+{
+	std::map<std::string, wfcClientBrowser*>::iterator iter = g_mapClientBrowser.begin();
+	while (iter != g_mapClientBrowser.end())
+	{
+		wfcClientBrowser *pBrowser = iter->second;
+		delete pBrowser;
+		++iter;
+	}	
+	g_mapClientBrowser.clear();
+}
+wfcClientBrowser *FindBrowser(CefRefPtr<CefClient> pClient)
+{
+	std::map<std::string, wfcClientBrowser*>::iterator iter = g_mapClientBrowser.begin();
+	while (iter != g_mapClientBrowser.end())
+	{
+		wfcClientBrowser *pBrowser = iter->second;
+		if (pBrowser->hasClient(pClient))
+		{
+			return pBrowser;
+		}
+		++iter;
+	}
+	return NULL;
+}
+wfcClientBrowser *FindBrowser(const std::string &brId)
+{
+	if (g_mapClientBrowser.find(brId) != g_mapClientBrowser.end()) {
+		return g_mapClientBrowser[brId];
+	}
+	return NULL;
 }

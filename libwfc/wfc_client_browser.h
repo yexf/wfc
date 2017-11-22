@@ -14,18 +14,21 @@ class wfcClientBrowser : public wfcBrowser
 {
 public:
 	static wfcClientBrowser *CreateBrowser(HWND hWnd, LPCSTR lpszMainPage, void *pUserData);
+
+public:	
 	~wfcClientBrowser();
+	
 	wfcClientBrowser(HWND hWnd, LPCSTR lpszMainPage, CefRefPtr<CefClientHandler> pHandle);
 
 	void Stop();
-	
-	bool IsSame(wfcBrowser *pBrowser);
 	
 	void AdjustCefLayout(int left, int top, int right, int bottom);
 	
 	void ReSize(int left, int top, int right, int bottom);
 	
 	bool notifyClose(HWND msgWnd);
+	
+	bool hasClient(CefRefPtr<CefClient> pClient);
 	
 	virtual void *GetData(){return m_pUserData;}
 
