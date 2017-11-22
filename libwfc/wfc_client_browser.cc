@@ -94,7 +94,10 @@ void wfcClientBrowser::AdjustCefLayout(int left, int top, int right, int bottom)
 }
 void wfcClientBrowser::ReSize(int left, int top, int right, int bottom)
 {
-	
+	if (m_hWnd)
+	{
+		AdjustCefLayout(left, top, right, bottom);
+	}
 }
 bool wfcClientBrowser::notifyClose(HWND msgWnd)
 {

@@ -148,6 +148,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			g_browser = CreateBrowser(hWnd, "www.baidu.com", NULL);
 		}
 		break;
+	case WM_SIZE:
+		{
+			if (g_browser)
+			{
+				g_browser->ReSize(0,0, LOWORD(lParam), HIWORD(lParam));
+				return 0;
+			}
+			else {
+				return DefWindowProc(hWnd, message, wParam, lParam);
+			}
+		}
 	case WM_CLOSE:
 		{
 			if (g_browser) {
