@@ -29,7 +29,5 @@ WFC_API void CoUnInitializeCef();
 WFC_API int InitCef(unsigned int uFlag);
 WFC_API void RunMsgLoopCef();
 WFC_API void QuitMsgLoopCef();
-WFC_API wfcBrowser *CreateTopBrowser(const char *pstrUrl, void *pData);
-WFC_API wfcBrowser *CreateChildBrowser(void *hWnd, const char *pstrUrl, void *pData);
-WFC_API wfcBrowser *CreatePopupBrowser(const char *pstrUrl, void *pData);
+WFC_API wfcBrowser *CreateBrowser(void *hWnd, const char *pstrUrl, void *pData);
 #endif //_LIB_WFC_H_

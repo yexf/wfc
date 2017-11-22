@@ -13,7 +13,7 @@
 class wfcClientBrowser : public wfcBrowser
 {
 public:
-	static wfcClientBrowser *CreateBrowser(wfcBrowser::BrowerType bType, HWND hWnd, LPCSTR lpszMainPage, void *pUserData);
+	static wfcClientBrowser *CreateBrowser(HWND hWnd, LPCSTR lpszMainPage, void *pUserData);
 	~wfcClientBrowser();
 	wfcClientBrowser(HWND hWnd, LPCSTR lpszMainPage, CefRefPtr<CefClientHandler> pHandle);
 

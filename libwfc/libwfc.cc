@@ -174,17 +174,7 @@ void QuitMsgLoopCef()
 	CefQuitMessageLoop();
 }
 
-wfcBrowser *CreateTopBrowser(const char *pstrUrl, void *pData)
+wfcBrowser *CreateBrowser(void *hWnd, const char *pstrUrl, void *pData)
 {
-	return wfcClientBrowser::CreateBrowser(wfcBrowser::TopBrowser, NULL, pstrUrl, pData);
-
-}
-wfcBrowser *CreateChildBrowser(void *hWnd, const char *pstrUrl, void *pData)
-{
-	return wfcClientBrowser::CreateBrowser(wfcBrowser::ChildBrowser, (HWND)hWnd, pstrUrl, pData);
-}
-
-wfcBrowser *CreatePopupBrowser(const char *pstrUrl, void *pData)
-{
-	return wfcClientBrowser::CreateBrowser(wfcBrowser::PopupBrowser, NULL, pstrUrl, pData);
+	return wfcClientBrowser::CreateBrowser((HWND)hWnd, pstrUrl, pData);
 }
