@@ -8,19 +8,13 @@
 
 #define WFC_CLASSNAME(c)	protected:virtual const char *GetClassName() {return #c;}
 
-
-
 class wfcBrowser
 {
 public:
 	virtual ~wfcBrowser() {};
-	enum BrowerType {
-		TopBrowser = 1,
-		ChildBrowser,
-		PopupBrowser,
-	};
 	virtual void Stop() = 0;	
 	virtual bool IsSame(wfcBrowser *pBrowser) = 0;
+	virtual void ReSize(int left, int top, int right, int bottom) = 0;
 	virtual void *GetData() {return NULL;};
 	WFC_CLASSNAME(wfcBrowser)
 };

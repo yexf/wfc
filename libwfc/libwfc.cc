@@ -11,7 +11,7 @@ const TCHAR *psztSubProcPath = _T("wfcweb");
 #ifndef F_OK
 #define F_OK 0
 #endif
-
+unsigned int g_uFlag = NORMAL;
 BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
 {
 	DWORD dwCurProcessId = *((DWORD*)lParam);
@@ -37,11 +37,20 @@ HWND GetMainWindow()
 	return NULL;
 }
 
+void QuitMessageLoop()
+{
+	if (g_uFlag & SINGLE_THREAD_MSGLOOP) {
+		CefQuitMessageLoop();
+	}
+	else {
+		::PostMessage(GetMainWindow(), WM_CLOSE, 0, 0);
+	}
+}
 static void ConfigSetting(unsigned int uFlag, CefSettings &settings)
 {
-	settings.single_process = !(uFlag & SINGLE_PROCESS);
+	settings.single_process = uFlag & SINGLE_PROCESS;
 	settings.multi_threaded_message_loop = !(uFlag & SINGLE_THREAD_MSGLOOP);
-	settings.windowless_rendering_enabled = !(uFlag & WINDOW_LESS);
+	settings.windowless_rendering_enabled = uFlag & WINDOW_LESS;
 
 	TCHAR path[MAX_PATH]			= {0};
 	TCHAR drive[MAX_PATH]			= {0};
@@ -141,7 +150,7 @@ int InitCef(unsigned int uFlag)
 
 	// Specify CEF global settings here.
 	CefSettings settings;
-
+	g_uFlag = uFlag;
 #if !defined(CEF_USE_SANDBOX)
 	settings.no_sandbox = true;
 #endif

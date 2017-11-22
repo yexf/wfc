@@ -23,7 +23,7 @@ CPPFLAGS := -I../cef -D_WINDOWS -DUNICODE -D_UNICODE -D__STDC_CONSTANT_MACROS -D
 DEFLIBS := ../lib/libcef.a 
 INLIBS := -lcef_dll_wrapper
 RESOBJS := wfcsimple.res
-LDFLAGS := -mwindows -municode -static -L../lib -L../cef/libcef_dll -Wl,--gc-sections
+LDFLAGS := -mwindows -municode -static -L../lib -L../cef/libcef_dll -l:../bin/libwfc.dll -Wl,--gc-sections
 CFLAGS := 
 CXXFLAGS := -std=c++11 -fpermissive -ffunction-sections -fdata-sections
 include $(BUILD_FILE)

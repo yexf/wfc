@@ -21,6 +21,10 @@ public:
 	
 	bool IsSame(wfcBrowser *pBrowser);
 	
+	void AdjustCefLayout(int left, int top, int right, int bottom);
+	
+	void ReSize(int left, int top, int right, int bottom);
+	
 	bool notifyClose(HWND msgWnd);
 	
 	virtual void *GetData(){return m_pUserData;}

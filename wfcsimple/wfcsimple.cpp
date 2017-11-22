@@ -3,7 +3,7 @@
 
 #include "stdafx.h"
 #include "wfcsimple.h"
-
+#include "../libwfc/libwfc.h"
 #define MAX_LOADSTRING 100
 
 // 全局变量: 
@@ -51,7 +51,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             DispatchMessage(&msg);
         }
     }
-
+	CoUnInitializeCef();
     return (int) msg.wParam;
 }
 
@@ -104,13 +104,14 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    {
       return FALSE;
    }
-
+	
+   CoInitializeCef();
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
    return TRUE;
 }
-
+wfcBrowser *g_browser = NULL;
 //
 //  函数: WndProc(HWND, UINT, WPARAM, LPARAM)
 //
@@ -142,6 +143,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+	case WM_KEYUP:
+		{
+			g_browser = CreateBrowser(hWnd, "www.baidu.com", NULL);
+		}
+		break;
+	case WM_CLOSE:
+		{
+			if (g_browser) {
+				delete g_browser;
+				g_browser = NULL;
+				return 0;
+			}
+			else {
+				return DefWindowProc(hWnd, message, wParam, lParam);
+			}
+		}
     case WM_PAINT:
         {
             PAINTSTRUCT ps;

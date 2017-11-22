@@ -70,6 +70,32 @@ bool wfcClientBrowser::IsSame(wfcBrowser *pBrowser)
 	return false;
 }
 
+void wfcClientBrowser::AdjustCefLayout(int left, int top, int right, int bottom)
+{	
+	if (m_pHandle.get())
+	{
+		if (m_pHandle->IsClosing())
+		{
+			return;
+		}
+		CefRefPtr<CefBrowser> br = m_pHandle->GetBrowser();
+		if (br.get()) 
+		{
+			CefRefPtr<CefBrowserHost> host = br->GetHost();
+			if (host.get()) 
+			{
+				HDWP hdwp = BeginDeferWindowPos(1);
+				hdwp = DeferWindowPos(hdwp, host->GetWindowHandle(), NULL, 
+					left,top,right-left,bottom-top,SWP_NOZORDER);
+				EndDeferWindowPos(hdwp);
+			}
+		}
+	}
+}
+void wfcClientBrowser::ReSize(int left, int top, int right, int bottom)
+{
+	
+}
 bool wfcClientBrowser::notifyClose(HWND msgWnd)
 {
 	if (m_pHandle.get())
