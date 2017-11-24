@@ -15,7 +15,7 @@ public:
 	virtual void Stop() = 0;	
 	virtual bool IsSame(wfcBrowser *pBrowser) {return this == pBrowser;};
 	virtual void ReSize(int left, int top, int right, int bottom) = 0;
-	virtual void *GetData() {return NULL;};
+	virtual void *GetData() {return 0;};
 	WFC_CLASSNAME(wfcBrowser)
 };
 
