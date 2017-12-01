@@ -225,3 +225,23 @@ wfcClientBrowser *FindBrowser(const std::string &brId)
 	}
 	return NULL;
 }
+
+HandleContextInit _set_handler(HandleContextInit handle)
+{
+	static HandleContextInit g_handler = NULL;
+	if (handle != NULL) {
+		g_handler = handle;
+	}
+	return g_handler;
+}
+void RegAppHandle(HandleContextInit handle)
+{
+	_set_handler(handle);
+}
+void OnContextInit() {
+	HandleContextInit handler = _set_handler(NULL);
+	if (handler)
+	{
+		handler();
+	}
+}

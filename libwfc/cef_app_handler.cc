@@ -5,6 +5,8 @@
 #include <string>
 #include "cef_app_handler.h"
 
+void OnContextInit();
+
 void CefAppHandler::OnBeforeCommandLineProcessing(
 	const CefString& process_type,
 	CefRefPtr<CefCommandLine> command_line)
@@ -27,5 +29,5 @@ void CefAppHandler::OnContextCreated(CefRefPtr<CefBrowser> browser,
 
 void CefAppHandler::OnContextInitialized()
 {
-	
+	OnContextInit();
 }

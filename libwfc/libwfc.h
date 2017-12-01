@@ -24,9 +24,13 @@
 
 #define NORMAL						(0)
 
+typedef void (CONTEXT_INIT_PROC)(void);
+typedef CONTEXT_INIT_PROC *HandleContextInit;
+
 WFC_API void CoInitializeCef();
 WFC_API void CoUnInitializeCef();
 WFC_API int InitCef(unsigned int uFlag);
+WFC_API void RegAppHandle(HandleContextInit handle);
 WFC_API void RunMsgLoopCef();
 WFC_API void QuitMsgLoopCef();
 WFC_API wfcBrowser *CreateBrowser(void *hWnd, const char *pstrUrl, void *pData);
