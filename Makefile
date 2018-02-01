@@ -11,7 +11,7 @@ export BUILD_FILE
 all : $(BUILD_TARGET)
 
 %.target : %
-	make -C $< -f config.mak -j
+	make -C $< -f config.mak
 %.clean : %
 	make -C $< -f config.mak clean
 	
