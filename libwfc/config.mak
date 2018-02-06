@@ -19,10 +19,10 @@ PROGRAMDIR := ../bin
 PROGRAM := libwfc.dll
 
 # 预处理阶段的选项
-CPPFLAGS := -I../cef -D_WINDOWS -DWFC_DLL -DUNICODE -D_UNICODE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -DWINVER=0x0601 -D_WIN32_WINNT=0x601 -DWIN32_LEAN_AND_MEAN -D_HAS_EXCEPTIONS -DPSAPI_VERSION=1 
+CPPFLAGS := -I../cef -I../lua -D_WINDOWS -DWFC_DLL -DUNICODE -D_UNICODE -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -DWINVER=0x0601 -D_WIN32_WINNT=0x601 -DWIN32_LEAN_AND_MEAN -D_HAS_EXCEPTIONS -DPSAPI_VERSION=1 
 DEFLIBS := ../lib/libcef.a 
 INLIBS := -lcef_dll_wrapper 
-LDFLAGS := -fvisibility=hidden -static -L../lib -L../cef/libcef_dll 
+LDFLAGS := -fvisibility=hidden -static -L../lib -L../cef/libcef_dll -l:../bin/lua51.dll
 CFLAGS := 
 CXXFLAGS := -std=c++11 -fpermissive -fpic
 include $(BUILD_FILE)

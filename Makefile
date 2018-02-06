@@ -6,14 +6,18 @@ BUILD_TARGET:= $(addsuffix .target, $(BUILD_DIR))
 BUILD_CLEAN:= $(addsuffix .clean, $(BUILD_DIR))
 export BUILD_FILE
 
-.PHONY: 
+.PHONY: lua 
 
-all : $(BUILD_TARGET)
-
+all : lua $(BUILD_TARGET)
+	
 %.target : %
 	make -C $< -f config.mak -j
 %.clean : %
 	make -C $< -f config.mak clean
+
+lua: 
+	make -C ./lua mingw
+	cp -f ./lua/src/lua51.dll ./bin/lua51.dll
 	
 rebuild: clean all
 	
@@ -26,6 +30,7 @@ clean: $(BUILD_CLEAN)
 cleanall: clean cleanout
 
 test: all 
+	make -C ./lua clean
 	make -C $(TEST_TARGET) -f config.mak $@
 
 	
