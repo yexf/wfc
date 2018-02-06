@@ -8,13 +8,6 @@ void DoContextInited() {
 
 int main()
 {
-	RegAppHandle(DoContextInited);
-
-	InitCef(SINGLE_THREAD_MSGLOOP);
-
-	RunMsgLoopCef();
-	
-	CoUnInitializeCef();
-
+	RunSingleCef(DoContextInited);
 	std::cout << "Exit \n";
 }

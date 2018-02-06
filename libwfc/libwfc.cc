@@ -179,14 +179,6 @@ void CoUnInitializeCef()
 {
 	CefShutdown();
 }
-void RunMsgLoopCef()
-{
-	CefRunMessageLoop();
-}
-void QuitMsgLoopCef()
-{
-	CefQuitMessageLoop();
-}
 
 wfcBrowser *CreateBrowser(void *hWnd, const char *pstrUrl, void *pData)
 {
@@ -238,6 +230,13 @@ void RegAppHandle(HandleContextInit handle)
 {
 	_set_handler(handle);
 }
+
+void RunSingleCef(HandleContextInit handle)
+{
+	_set_handler(handle);
+	InitCef(SINGLE_THREAD_MSGLOOP);
+}
+
 void OnContextInit() {
 	HandleContextInit handler = _set_handler(NULL);
 	if (handler)
