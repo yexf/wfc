@@ -9,6 +9,9 @@
 #define LIBWFC_CEF_CLIENT_SCHEME_H_
 
 #pragma once
+#include <set>
+#include "include/cef_browser.h"
+
 
 void RegisterSchemeHandlers();
 

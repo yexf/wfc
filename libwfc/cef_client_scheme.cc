@@ -27,7 +27,10 @@ std::string g_ConfigHost;
 
 std::string DumpMapJson(const std::map<std::string, std::string>& kvmap)
 {
-	return "";
+	std::stringstream ss;
+	std::string str_splite = "";
+	
+	return ss.str();
 }
 
 std::string DumpRequestContents(const std::map<std::string, std::string>& kvmap)

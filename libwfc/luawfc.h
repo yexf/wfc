@@ -15,4 +15,7 @@
 
 WFC_API int luaopen_libwfc(lua_State* L);
 
+int scheme_call_lua(const char *url, const char *req, lua_Integer conf, std::string &err);
+
+void scheme_get_data(int func_ref, std::string &data_, std::string &mime_, std::string &err);
 #endif //_LUA_WFC_H_
