@@ -180,9 +180,9 @@ void CoUnInitializeCef()
 	CefShutdown();
 }
 
-wfcBrowser *CreateBrowser(void *hWnd, const char *pstrUrl, void *pData)
+wfcBrowser *CreateBrowser(void *hWnd, const char *pstrUrl, const char *pstrParam, void *pData)
 {
-	return wfcClientBrowser::CreateBrowser((HWND)hWnd, pstrUrl, pData);
+	return wfcClientBrowser::CreateBrowser((HWND)hWnd, pstrUrl, pstrParam, pData);
 }
 
 void DestoryBrowser()

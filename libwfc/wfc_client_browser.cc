@@ -27,7 +27,7 @@ wfcClientBrowser::~wfcClientBrowser()
 	m_pHandle = NULL;
 }
 
-wfcClientBrowser *wfcClientBrowser::CreateBrowser(HWND hWnd, LPCSTR lpszMainPage, void *pUserData)
+wfcClientBrowser *wfcClientBrowser::CreateBrowser(HWND hWnd, LPCSTR lpszMainPage, const char *pStrParam, void *pUserData)
 {
 	CefRefPtr<CefClientHandler> handler(new CefClientHandler(false));
 	wfcClientBrowser *pBrowser = new wfcClientBrowser(hWnd, lpszMainPage, handler);
@@ -47,6 +47,7 @@ wfcClientBrowser *wfcClientBrowser::CreateBrowser(HWND hWnd, LPCSTR lpszMainPage
 	CefBrowserHost::CreateBrowser(info, handler.get(), url, settings, NULL);
 	if (pBrowser != NULL) {
 		pBrowser->m_pUserData = pUserData;
+		pBrowser->m_pStrParam = pStrParam;
 	}
 	return pBrowser;
 }

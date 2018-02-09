@@ -13,8 +13,9 @@
 class wfcClientBrowser : public wfcBrowser
 {
 public:
-	static wfcClientBrowser *CreateBrowser(HWND hWnd, LPCSTR lpszMainPage, void *pUserData);
+	static wfcClientBrowser *CreateBrowser(HWND hWnd, LPCSTR lpszMainPage, const char *pStrParam = NULL, void *pUserData = NULL);
 
+	
 public:	
 	~wfcClientBrowser();
 	
@@ -31,12 +32,15 @@ public:
 	bool hasClient(CefRefPtr<CefClient> pClient);
 	
 	virtual void *GetData(){return m_pUserData;}
+	
+	virtual const char *GetStrParam(){return m_pStrParam;}
 
 protected:
 	CefRefPtr<CefClientHandler> m_pHandle;
 	CefString m_strMainPage;
 	HWND m_hWnd;
 	void *m_pUserData;
+	const char *m_pStrParam;
 	WFC_CLASSNAME(wfcClientBrowser)
 };
 

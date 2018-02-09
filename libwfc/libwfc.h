@@ -31,6 +31,6 @@ WFC_API void CoInitializeCef();
 WFC_API void CoUnInitializeCef();
 WFC_API void RegAppHandle(HandleContextInit handle);
 WFC_API void RunSingleCef(HandleContextInit handle);
-WFC_API wfcBrowser *CreateBrowser(void *hWnd, const char *pstrUrl, void *pData);
+WFC_API wfcBrowser *CreateBrowser(void *hWnd, const char *pstrUrl, const char *pstrParam, void *pData);
 
 #endif //_LIB_WFC_H_

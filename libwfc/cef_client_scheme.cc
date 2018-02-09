@@ -8,6 +8,9 @@
 #include <direct.h>
 #include <fstream>
 #include <sstream>
+#include <set>
+#include <map>
+#include <string>
 #include <io.h>
 
 #include <include/cef_parser.h>
@@ -23,7 +26,33 @@
 
 
 CefLock g_ResLock;
-std::string g_ConfigHost;
+std::set<CefLuaScheme *> g_setLuaScheme;
+std::map<std::string, std::string> g_HostMap;
+std::map<std::string, std::string> g_RefMap;
+
+void AddHost(const char *api_name, const char *host)
+{
+	CefAutoLock lock_scope(g_ResLock);
+	g_HostMap[api_name] = host;
+}
+
+void AddRef(const char *ref_url, const char *url)
+{
+	CefAutoLock lock_scope(g_ResLock);
+	g_RefMap[ref_url] = url;
+}
+
+void InsertLuaScheme(CefLuaScheme *pLuaScheme)
+{
+	CefAutoLock lock_scope(g_ResLock);
+	g_setLuaScheme.insert(pLuaScheme);
+}
+
+void DeleteLuaScheme(CefLuaScheme *pLuaScheme)
+{
+	CefAutoLock lock_scope(g_ResLock);
+	g_setLuaScheme.erase(pLuaScheme);
+}
 
 std::string DumpMapJson(const std::map<std::string, std::string>& kvmap)
 {
@@ -100,24 +129,6 @@ std::string DumpRequestContents(CefRefPtr<CefRequest> request)
 	}
 	return ss.str();
 }
-
-class CefLocalApiScheme : public CefResourceHandler
-{
-
-};
-
-class CefWebApiSchemeHandlerFactory : public CefSchemeHandlerFactory {
-public:
-	virtual CefRefPtr<CefResourceHandler> Create(
-	      CefRefPtr<CefBrowser> browser,
-	      CefRefPtr<CefFrame> frame,
-	      const CefString& scheme_name,
-	      CefRefPtr<CefRequest> request) {
-		return CefRefPtr<CefResourceHandler>();
-	}
-
-	IMPLEMENT_REFCOUNTING(CefWebApiSchemeHandlerFactory);
-};
 
 void RegisterSchemeHandlers() {
 }
