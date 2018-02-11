@@ -150,6 +150,26 @@ bool RemoveHeadStr(std::string &str, const char *skip)
 	return false;
 }
 
+std::string GetResMimeType()
+{
+	return "";
+}
+
+std::string Replace()
+{
+	return "";
+}
+
+void ConvMDFile()
+{
+	
+}
+
+void GetResFile()
+{
+	
+}
+
 bool GetClientFile(const std::string &refPath, std::string &data)
 {
 	char acPath[256] = {0};
@@ -171,6 +191,8 @@ bool GetClientFile(const std::string &refPath, std::string &data)
 		return false;
 	}
 }
+
+
 
 void RegisterSchemeHandlers() {
 }
