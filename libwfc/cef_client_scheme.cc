@@ -18,13 +18,15 @@
 #include "cef_app_handler.h"
 #include "cef_client_handler.h"
 #include "wfc_cef_lock.h"
+#include "wfc_file_cache.h"
 #include "cef_client_scheme.h"
+#include "aux-cvt.h"
 
 #define WFC_LOCAL_API					"wfc_local_api"
 #define WFC_LOCAL_API_SCHEME			"http"
 #define WFC_LOCAL_API_HOST				WFC_LOCAL_API_SCHEME##"://"##WFC_LOCAL_API
 
-
+WfcFileCache g_FileCache;
 CefLock g_ResLock;
 std::set<CefLuaScheme *> g_setLuaScheme;
 std::map<std::string, std::string> g_HostMap;
@@ -128,6 +130,46 @@ std::string DumpRequestContents(CefRefPtr<CefRequest> request)
 		}
 	}
 	return ss.str();
+}
+
+bool RemoveHeadStr(std::string &str, const char *skip)
+{
+	const char *pstr = str.c_str();
+	while (*pstr != '\0')
+	{
+		if (*skip++ != *pstr++)
+		{
+			break;
+		}
+		if (*skip == '\0')
+		{
+			str = pstr;
+			return true;
+		}
+	}
+	return false;
+}
+
+bool GetClientFile(const std::string &refPath, std::string &data)
+{
+	char acPath[256] = {0};
+	getcwd(acPath, sizeof(acPath));
+	std::string strURI = CefURIDecode(refPath, true, UU_NORMAL);
+	strURI = aux::w2a(aux::utf2w(strURI.c_str()));
+	std::string strPath = acPath + strURI;
+	if (g_FileCache.GetFile(strPath, data, false))
+	{
+		return true;
+	}
+	else if (g_FileCache.GetZipData(acPath, strURI, data))
+	{
+		return true;
+	}
+	else
+	{
+		data = "Get File Error: " + strPath;
+		return false;
+	}
 }
 
 void RegisterSchemeHandlers() {

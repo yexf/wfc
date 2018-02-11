@@ -24,7 +24,7 @@
 class CefLocalApiScheme : public CefResourceHandler
 {
 public:
-	CefLocalApiScheme(const std::string &strParam) 
+	CefLocalApiScheme(const std::string &strParam) :str_param_(strParam)
 	{}
 	~CefLocalApiScheme() {}
 	
