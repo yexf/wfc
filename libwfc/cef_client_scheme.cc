@@ -150,26 +150,6 @@ bool RemoveHeadStr(std::string &str, const char *skip)
 	return false;
 }
 
-std::string GetResMimeType()
-{
-	return "";
-}
-
-std::string Replace()
-{
-	return "";
-}
-
-void ConvMDFile()
-{
-	
-}
-
-void GetResFile()
-{
-	
-}
-
 bool GetClientFile(const std::string &refPath, std::string &data)
 {
 	char acPath[256] = {0};
@@ -192,7 +172,56 @@ bool GetClientFile(const std::string &refPath, std::string &data)
 	}
 }
 
+std::string GetResMimeType(const std::string &url, std::string &file_type)
+{
+	if (url.find_last_of('.') == std::string::npos)
+	{
+		file_type = "";
+		return "text/plain";
+	}
+	else 
+	{
+		file_type = url.substr(url.find_last_of('.')+1);
+		std::string type_name = file_type;
+		if (file_type == "md")
+		{
+			type_name = "text/html";
+		}
+		else
+		{
+			type_name = CefGetMimeType(file_type);
+		}
+		return type_name;
+	}
+}
 
+std::string &Replace(std::string &src, const std::string &str, const std::string &dest)
+{
+	while (true)
+	{
+		std::string::size_type pos(0);
+		if ( (pos = src.find(str)) != std::string::npos)
+		{
+			src.replace(pos, str.length(), dest);
+		}
+		else
+		{
+			break;
+		}
+	}
+	return src;
+}
+
+void ConvMDFile(const std::string &html_tpl, const std::string &md_url, std::string &data)
+{
+	GetClientFile(html_tpl, data);
+	Replace(data, "#md_file_url#", md_url);
+}
+
+void GetResFile(const std::string &url, const std::string &file_type, std::string &data)
+{
+	GetClientFile(url, data);
+}
 
 void RegisterSchemeHandlers() {
 }
